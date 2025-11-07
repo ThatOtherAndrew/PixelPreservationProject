@@ -13,7 +13,14 @@
       <h1>The Pixel Preservation Project</h1>
     </header>
     <main>
-      <h2>List of games:</h2>
+      <div class="header-row">
+        <h2>List of games:</h2>
+        <select id="sort-select">
+          <option value="title">Sort by Title</option>
+          <option value="platform">Sort by Platform</option>
+          <option value="genre">Sort by Genre</option>
+        </select>
+      </div>
       <ul id="games">
         <li id="add-game-entry">
           <button id="add-game-button">

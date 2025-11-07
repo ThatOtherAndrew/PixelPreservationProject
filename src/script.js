@@ -1,5 +1,7 @@
 'use strict';
 
+let currentSortBy = 'title';
+
 /**
  * @param {string} string
  * @returns {string}
@@ -68,24 +70,53 @@ function buildGameEntry(game) {
     // Add delete button handler
     const li = clone.children[0];
     const deleteButton = clone.querySelector('.button.danger');
-    deleteButton.addEventListener('click', () => li.remove());
+    deleteButton.addEventListener('click', () => {
+        const index = games.indexOf(game);
+        if (index > -1) {
+            games.splice(index, 1);
+            renderGames(currentSortBy);
+        }
+    });
 
     return li;
 }
 
-function onPageLoad() {
-    // Sort by title
-    games.sort((a, b) => a.title.localeCompare(b.title));
+/**
+ * @param {string} sortBy
+ */
+function renderGames(sortBy) {
+    currentSortBy = sortBy;
+
+    // Sort games
+    const sortedGames = [...games].sort((a, b) => {
+        return a[sortBy].localeCompare(b[sortBy]);
+    });
+
+    // Clear existing game entries (except the add button)
+    const gamesList = document.getElementById('games');
+    const addButton = document.getElementById('add-game-entry');
+    gamesList.innerHTML = '';
+    gamesList.appendChild(addButton);
 
     // Render game entries
-    const gamesList = document.getElementById('games');
-    for (const game of games) {
+    for (const game of sortedGames) {
         if (isGameEntryValid(game)) {
             gamesList.appendChild(buildGameEntry(game));
         } else {
             console.warn('Invalid game entry skipped:', game);
         }
     }
+}
+
+function onPageLoad() {
+    // Initial render
+    renderGames('title');
+
+    // Add sort event listener
+    const sorter = document.getElementById('sort-select');
+    sorter.addEventListener('change', (e) => {
+        renderGames(e.target.value);
+    });
 }
 
 onPageLoad();
