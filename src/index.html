@@ -31,7 +31,7 @@
 
     <template id="add-game-entry">
       <li id="add-game-entry">
-        <button id="add-game-button">
+        <button title="Add game" id="add-game-button">
           <!-- prettier-ignore -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>
         </button>
@@ -47,10 +47,10 @@
         </div>
         <p class="description"></p>
         <div class="buttons">
-          <button class="button danger">
+          <button title="Delete" class="button danger">
             <img src="assets/icons/trash.png" alt="Delete" />
           </button>
-          <button class="button">
+          <button title="Edit" class="button">
             <img src="assets/icons/pencil.png" alt="Edit" />
           </button>
         </div>
@@ -68,10 +68,10 @@
           Description of the game...
         </p>
         <div class="buttons">
-          <button class="button discard danger">
+          <button title="Discard" class="button discard danger">
             <img src="assets/icons/x.png" alt="Discard" />
           </button>
-          <button class="button save">
+          <button title="Save" class="button save">
             <img src="assets/icons/check.png" alt="Save" />
           </button>
         </div>
