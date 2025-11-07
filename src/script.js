@@ -46,16 +46,21 @@ function isGameEntryValid(game) {
 
 /**
  * @param {Game} game
+ * @param {number} index
  * @returns {HTMLLIElement}
  */
-function buildGameEntry(game) {
+function buildGameEntry(game, index) {
     const template = document.getElementById('game-entry');
     const clone = template.content.cloneNode(true);
 
+    const li = clone.querySelector('li');
     const title = clone.querySelector('.title');
     const genre = clone.querySelector('.genre');
     const platform = clone.querySelector('.platform');
     const description = clone.querySelector('.description');
+
+    // Store game index for event delegation
+    li.dataset.gameIndex = index;
 
     // Insert text content
     title.innerText = game.title;
@@ -67,32 +72,14 @@ function buildGameEntry(game) {
     genre.style.backgroundColor = colourHash(game.genre);
     platform.style.backgroundColor = colourHash(game.platform);
 
-    // Add button handlers
-    const li = clone.children[0];
-    const deleteButton = clone.querySelector('.button.danger');
-    const editButton = clone.querySelector('.button:not(.danger)');
-
-    deleteButton.addEventListener('click', () => {
-        const index = games.indexOf(game);
-        if (index > -1) {
-            games.splice(index, 1);
-            renderGames(currentSortBy);
-        }
-    });
-
-    editButton.addEventListener('click', () => {
-        const editLi = buildEditGameEntry(game);
-        li.replaceWith(editLi);
-    });
-
     return li;
 }
 
 /**
- * @param {Game|null} game - Game to edit, or null to create new game
+ * @param {number|null} gameIndex - Index of game to edit, or null to create new game
  * @returns {HTMLLIElement}
  */
-function buildEditGameEntry(game = null) {
+function buildEditGameEntry(gameIndex = null) {
     const template = document.getElementById('edit-game-entry');
     const clone = template.content.cloneNode(true);
 
@@ -101,10 +88,13 @@ function buildEditGameEntry(game = null) {
     const genre = clone.querySelector('.genre');
     const platform = clone.querySelector('.platform');
     const description = clone.querySelector('.description');
-    const buttons = clone.querySelector('.buttons');
 
-    // If editing existing game, populate fields
-    if (game) {
+    // Store game index for event delegation (or null for new game)
+    if (gameIndex !== null) {
+        li.dataset.gameIndex = gameIndex;
+        const game = games[gameIndex];
+
+        // Populate fields with existing game data
         title.innerText = game.title;
         genre.innerText = game.genre;
         platform.innerText = game.platform;
@@ -115,43 +105,6 @@ function buildEditGameEntry(game = null) {
         platform.style.backgroundColor = colourHash(game.platform);
     }
 
-    // Button handlers
-    const discardButton = buttons.querySelector('.button.discard');
-    const saveButton = buttons.querySelector('.button.save');
-
-    discardButton.addEventListener('click', () => {
-        renderGames(currentSortBy);
-    });
-
-    saveButton.addEventListener('click', () => {
-        const gameData = {
-            title: title.innerText.trim(),
-            genre: genre.innerText.trim(),
-            platform: platform.innerText.trim(),
-            description: description.innerText.trim(),
-        };
-
-        // Validate
-        if (!isGameEntryValid(gameData)) {
-            alert('Invalid game data. Please check your inputs.');
-            return;
-        }
-
-        if (game) {
-            // Update existing game
-            game.title = gameData.title;
-            game.genre = gameData.genre;
-            game.platform = gameData.platform;
-            game.description = gameData.description;
-        } else {
-            // Add new game
-            games.push(gameData);
-        }
-
-        // Re-render
-        renderGames(currentSortBy);
-    });
-
     return li;
 }
 
@@ -161,9 +114,10 @@ function buildEditGameEntry(game = null) {
 function renderGames(sortBy) {
     currentSortBy = sortBy;
 
-    // Sort games
-    const sortedGames = [...games].sort((a, b) => {
-        return a[sortBy].localeCompare(b[sortBy]);
+    // Sort games and track original indices
+    const indexedGames = games.map((game, index) => ({ game, index }));
+    indexedGames.sort((a, b) => {
+        return a.game[sortBy].localeCompare(b.game[sortBy]);
     });
 
     // Clear existing game entries and recreate add button
@@ -174,18 +128,10 @@ function renderGames(sortBy) {
     const addGameClone = addGameTemplate.content.cloneNode(true);
     gamesList.appendChild(addGameClone);
 
-    // Re-attach add button event listener
-    const addGameButton = document.getElementById('add-game-button');
-    addGameButton.addEventListener('click', () => {
-        const addGameEntry = document.getElementById('add-game-entry');
-        const editEntry = buildEditGameEntry();
-        addGameEntry.replaceWith(editEntry);
-    });
-
-    // Render game entries
-    for (const game of sortedGames) {
+    // Render game entries with original indices
+    for (const { game, index } of indexedGames) {
         if (isGameEntryValid(game)) {
-            gamesList.appendChild(buildGameEntry(game));
+            gamesList.appendChild(buildGameEntry(game, index));
         } else {
             console.warn('Invalid game entry skipped:', game);
         }
@@ -201,6 +147,98 @@ function onPageLoad() {
     sorter.addEventListener('change', (e) => {
         renderGames(e.target.value);
     });
+
+    // Universal button callback
+    // monoliths ftw!!!
+    const gamesList = document.getElementById('games');
+    gamesList.addEventListener('click', (e) => {
+        const button = e.target.closest('button');
+        if (!button) return;
+
+        // Handle add game button
+        if (button.id === 'add-game-button') {
+            const addGameEntry = document.getElementById('add-game-entry');
+            const editEntry = buildEditGameEntry();
+            addGameEntry.replaceWith(editEntry);
+            return;
+        }
+
+        // Find parent li for game entries
+        const li = button.closest('li');
+        if (!li) return;
+
+        // Handle delete button
+        if (
+            button.classList.contains('danger') &&
+            !button.classList.contains('discard')
+        ) {
+            const gameIndex = parseInt(li.dataset.gameIndex);
+            if (!isNaN(gameIndex)) {
+                games.splice(gameIndex, 1);
+                renderGames(currentSortBy);
+            }
+            return;
+        }
+
+        // Handle edit button
+        if (
+            button.classList.contains('button') &&
+            !button.classList.contains('danger') &&
+            !button.classList.contains('save')
+        ) {
+            const gameIndex = parseInt(li.dataset.gameIndex);
+            if (!isNaN(gameIndex)) {
+                const editLi = buildEditGameEntry(gameIndex);
+                li.replaceWith(editLi);
+            }
+            return;
+        }
+
+        // Handle discard button
+        if (button.classList.contains('discard')) {
+            renderGames(currentSortBy);
+            return;
+        }
+
+        // Handle save button
+        if (button.classList.contains('save')) {
+            const title = li.querySelector('.title');
+            const genre = li.querySelector('.genre');
+            const platform = li.querySelector('.platform');
+            const description = li.querySelector('.description');
+
+            const gameData = {
+                title: title.innerText.trim(),
+                genre: genre.innerText.trim(),
+                platform: platform.innerText.trim(),
+                description: description.innerText.trim(),
+            };
+
+            // Validate
+            if (!isGameEntryValid(gameData)) {
+                alert('Invalid game data. Please check your inputs.');
+                return;
+            }
+
+            const gameIndex = li.dataset.gameIndex
+                ? parseInt(li.dataset.gameIndex)
+                : null;
+            if (gameIndex !== null && !isNaN(gameIndex)) {
+                // Update existing game
+                games[gameIndex].title = gameData.title;
+                games[gameIndex].genre = gameData.genre;
+                games[gameIndex].platform = gameData.platform;
+                games[gameIndex].description = gameData.description;
+            } else {
+                // Add new game
+                games.push(gameData);
+            }
+
+            renderGames(currentSortBy);
+            return;
+        }
+    });
 }
 
+// where it all begins...
 onPageLoad();
