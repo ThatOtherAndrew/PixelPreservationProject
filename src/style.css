@@ -52,13 +52,37 @@ h1 {
     text-align: center;
 }
 
+/*******************/
+/* Game entry grid */
+/*******************/
+
 ul {
     list-style-type: none;
     padding: 0;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+}
+
+/* media query spam for responsive column count */
+
+@media (max-width: 75rem) {
+    ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 55rem) {
+    ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 35rem) {
+    ul {
+        grid-template-columns: 1fr;
+    }
 }
 
 /****************/
