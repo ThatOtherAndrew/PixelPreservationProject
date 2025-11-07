@@ -67,15 +67,96 @@ function buildGameEntry(game) {
     genre.style.backgroundColor = colourHash(game.genre);
     platform.style.backgroundColor = colourHash(game.platform);
 
-    // Add delete button handler
+    // Add button handlers
     const li = clone.children[0];
     const deleteButton = clone.querySelector('.button.danger');
+    const editButton = clone.querySelector('.button:not(.danger)');
+
     deleteButton.addEventListener('click', () => {
         const index = games.indexOf(game);
         if (index > -1) {
             games.splice(index, 1);
             renderGames(currentSortBy);
         }
+    });
+
+    editButton.addEventListener('click', () => {
+        const editLi = buildEditGameEntry(game);
+        li.replaceWith(editLi);
+    });
+
+    return li;
+}
+
+/**
+ * @param {Game} game
+ * @returns {HTMLLIElement}
+ */
+function buildEditGameEntry(game) {
+    const template = document.getElementById('game-entry');
+    const clone = template.content.cloneNode(true);
+
+    const title = clone.querySelector('.title');
+    const genre = clone.querySelector('.genre');
+    const platform = clone.querySelector('.platform');
+    const description = clone.querySelector('.description');
+
+    // Insert text content and make editable
+    title.innerText = game.title;
+    title.contentEditable = 'true';
+
+    genre.innerText = game.genre;
+    genre.contentEditable = 'true';
+
+    platform.innerText = game.platform;
+    platform.contentEditable = 'true';
+
+    description.innerText = game.description;
+    description.contentEditable = 'true';
+
+    // Set tag colours
+    genre.style.backgroundColor = colourHash(game.genre);
+    platform.style.backgroundColor = colourHash(game.platform);
+
+    // Replace button icons
+    const li = clone.children[0];
+    const buttons = clone.querySelector('.buttons');
+    const editButtonsTemplate = document.getElementById('edit-game-buttons');
+    const editButtonsClone = editButtonsTemplate.content.cloneNode(true);
+    buttons.innerHTML = '';
+    buttons.appendChild(editButtonsClone);
+
+    // Add new button functionality
+    const discardButton = buttons.querySelector('.button.danger');
+    const saveButton = buttons.querySelector('.button:not(.danger)');
+
+    discardButton.addEventListener('click', () => {
+        renderGames(currentSortBy);
+    });
+
+    saveButton.addEventListener('click', () => {
+        // Get edited values
+        const editedGame = {
+            title: title.innerText.trim(),
+            genre: genre.innerText.trim(),
+            platform: platform.innerText.trim(),
+            description: description.innerText.trim(),
+        };
+
+        // Validate
+        if (!isGameEntryValid(editedGame)) {
+            alert('Invalid game data. Please check your inputs.');
+            return;
+        }
+
+        // Update the game object
+        game.title = editedGame.title;
+        game.genre = editedGame.genre;
+        game.platform = editedGame.platform;
+        game.description = editedGame.description;
+
+        // Re-render
+        renderGames(currentSortBy);
     });
 
     return li;

@@ -133,7 +133,7 @@ li {
 }
 
 li h3 {
-    margin: 0;
+    margin: 0 0 0.5rem 0;
 }
 
 .tag {
@@ -141,16 +141,31 @@ li h3 {
     border-radius: 999px;
 }
 
+/*****************/
+/* Entry edit UI */
+/*****************/
+
+[contenteditable='true'] {
+    outline: 2px dashed grey;
+    background-color: lightgrey !important;
+    transition: background-color 0.15s ease;
+}
+
+[contenteditable='true']:focus {
+    outline-color: #666;
+    background-color: #eee !important;
+}
+
+/*****************/
+/* Entry buttons */
+/*****************/
+
 .buttons {
     margin-top: auto;
     display: flex;
     gap: 0.5em;
     justify-content: flex-end;
 }
-
-/*****************/
-/* Entry buttons */
-/*****************/
 
 .button {
     padding: 0;
