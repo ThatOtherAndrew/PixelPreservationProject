@@ -15,11 +15,14 @@
     <main>
       <div class="header-row">
         <h2>List of games:</h2>
-        <select id="sort-select">
-          <option value="title">Sort by Title</option>
-          <option value="platform">Sort by Platform</option>
-          <option value="genre">Sort by Genre</option>
-        </select>
+        <div class="controls">
+          <input type="text" id="search-input" placeholder="Search games..." />
+          <select id="sort-select">
+            <option value="title">Sort by Title</option>
+            <option value="platform">Sort by Platform</option>
+            <option value="genre">Sort by Genre</option>
+          </select>
+        </div>
       </div>
       <ul id="games"></ul>
     </main>

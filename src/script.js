@@ -1,6 +1,7 @@
 'use strict';
 
 let currentSortBy = 'title';
+let currentSearchQuery = '';
 let isEditing = false;
 
 /**
@@ -16,8 +17,10 @@ function setEditingMode(editingLi) {
         }
     });
 
-    // Disable sort select
+    // Disable search and sort controls
+    const searchInput = document.getElementById('search-input');
     const sortSelect = document.getElementById('sort-select');
+    searchInput.disabled = true;
     sortSelect.disabled = true;
 }
 
@@ -31,8 +34,10 @@ function clearEditingMode() {
         button.disabled = false;
     });
 
-    // Enable sort select
+    // Enable search and sort controls
+    const searchInput = document.getElementById('search-input');
     const sortSelect = document.getElementById('sort-select');
+    searchInput.disabled = false;
     sortSelect.disabled = false;
 }
 
@@ -144,13 +149,24 @@ function buildEditGameEntry(gameIndex = null) {
 
 /**
  * @param {string} sortBy
+ * @param {string} searchQuery
  */
-function renderGames(sortBy) {
+function renderGames(sortBy, searchQuery = '') {
     currentSortBy = sortBy;
+    currentSearchQuery = searchQuery;
 
-    // Sort games and track original indices
-    const indexedGames = games.map((game, index) => ({ game, index }));
-    indexedGames.sort((a, b) => {
+    // Filter games by search query (case-insensitive title match)
+    const filteredGames = games
+        .map((game, index) => ({ game, index }))
+        .filter(({ game }) => {
+            if (!searchQuery) return true;
+            return game.title
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
+        });
+
+    // Sort filtered games
+    filteredGames.sort((a, b) => {
         return a.game[sortBy].localeCompare(b.game[sortBy]);
     });
 
@@ -163,7 +179,7 @@ function renderGames(sortBy) {
     gamesList.appendChild(addGameClone);
 
     // Render game entries with original indices
-    for (const { game, index } of indexedGames) {
+    for (const { game, index } of filteredGames) {
         if (isGameEntryValid(game)) {
             gamesList.appendChild(buildGameEntry(game, index));
         } else {
@@ -176,10 +192,16 @@ function onPageLoad() {
     // Initial render
     renderGames('title');
 
+    // Add search event listener
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', (e) => {
+        renderGames(currentSortBy, e.target.value);
+    });
+
     // Add sort event listener
     const sorter = document.getElementById('sort-select');
     sorter.addEventListener('change', (e) => {
-        renderGames(e.target.value);
+        renderGames(e.target.value, currentSearchQuery);
     });
 
     // Universal button callback
@@ -211,7 +233,7 @@ function onPageLoad() {
             if (!isNaN(gameIndex)) {
                 games.splice(gameIndex, 1);
                 clearEditingMode();
-                renderGames(currentSortBy);
+                renderGames(currentSortBy, currentSearchQuery);
             }
             return;
         }
@@ -234,7 +256,7 @@ function onPageLoad() {
         // Handle discard button
         if (button.classList.contains('discard')) {
             clearEditingMode();
-            renderGames(currentSortBy);
+            renderGames(currentSortBy, currentSearchQuery);
             return;
         }
 
@@ -273,7 +295,7 @@ function onPageLoad() {
             }
 
             clearEditingMode();
-            renderGames(currentSortBy);
+            renderGames(currentSortBy, currentSearchQuery);
             return;
         }
     });

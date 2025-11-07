@@ -67,10 +67,48 @@ h1 {
     margin: 0;
 }
 
-#sort-select {
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.controls > * {
     font-family: 'Departure Mono', monospace;
     font-size: 100%;
     font-weight: bold;
+}
+
+#search-input {
+    padding: 0.2em 0.5em;
+    border: 2px solid grey;
+    border-radius: 10px;
+    background-color: transparent;
+    cursor: text;
+
+    transition:
+        background-color 0.15s ease,
+        opacity 0.15s ease,
+        border-color 0.15s ease;
+}
+
+#search-input:hover {
+    /* Transparency because it looks cool with the background */
+    background-color: rgba(211, 211, 211, 0.5);
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #666;
+    background-color: rgba(211, 211, 211, 0.8);
+}
+
+#search-input::placeholder {
+    color: #999;
+    font-weight: normal;
+}
+
+#sort-select {
     text-align: right;
 
     padding: 0.2em 0.5em 0.2em 0;
@@ -160,6 +198,7 @@ li h3 {
 
 /* Frozen UI when in edit mode */
 
+#search-input:disabled,
 #sort-select:disabled {
     opacity: 0.4;
     cursor: not-allowed;
