@@ -21,6 +21,22 @@ body {
     font-size: 18px;
     color: #444;
     padding: 0 10px;
+    background-color: #fafafa;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 40px,
+            rgba(0, 0, 0, 0.05) 40px,
+            rgba(0, 0, 0, 0.05) 48px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 40px,
+            rgba(0, 0, 0, 0.05) 40px,
+            rgba(0, 0, 0, 0.05) 48px
+        );
 }
 
 h1,
