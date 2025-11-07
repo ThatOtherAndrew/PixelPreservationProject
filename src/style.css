@@ -49,12 +49,32 @@ li h4 {
     justify-content: flex-end;
 }
 
+/*****************/
+/* Entry buttons */
+/*****************/
+
 .button {
     padding: 0;
     width: 3em;
     height: 3em;
     border: 2px solid grey;
     border-radius: 10px;
+
+    background-color: #f0f0f0;
+    transition: background-color 0.15s ease;
+}
+
+.button:hover {
+    background-color: lightgrey;
+}
+
+.button.danger {
+    border-color: #ff5050;
+    background-color: #ffc0c0;
+}
+
+.button.danger:hover {
+    background-color: #ffa0a0;
 }
 
 .button img {
