@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="games.js"></script>
+    <script defer src="script.js"></script>
+
+    <title>The Pixel Preservation Project</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>The Pixel Preservation Project</h1>
+    </header>
+    <main>
+      <h2>List of games:</h2>
+      <ul id="games"></ul>
+    </main>
+
+    <template id="game-entry">
+      <li>
+        <h5 class="title"></h5>
+        <span>
+          <span class="genre"></span>
+          <span class="platform"></span>
+        </span>
+      </li>
+    </template>
+  </body>
+</html>
