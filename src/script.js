@@ -11,6 +11,7 @@ function buildGameEntry(game) {
     clone.querySelector('.title').innerText = game.title;
     clone.querySelector('.genre').innerText = game.genre;
     clone.querySelector('.platform').innerText = game.platform;
+    clone.querySelector('.description').innerText = game.description;
 
     return clone.querySelector('li');
 }
