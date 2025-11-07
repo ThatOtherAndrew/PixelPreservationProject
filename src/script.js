@@ -1,6 +1,20 @@
 'use strict';
 
 /**
+ * @param {string} string
+ * @returns {string}
+ */
+function colourHash(string) {
+    let hash = string
+        .split('')
+        .reduce((acc, val) => acc + val.charCodeAt(0), 0);
+    hash *= 1337;
+
+    const hue = hash % 360;
+    return `hsl(${hue}, 100%, 80%)`;
+}
+
+/**
  * @param {Game} game
  * @returns {HTMLLIElement}
  */
@@ -8,12 +22,22 @@ function buildGameEntry(game) {
     const template = document.getElementById('game-entry');
     const clone = template.content.cloneNode(true);
 
-    clone.querySelector('.title').innerText = game.title;
-    clone.querySelector('.genre').innerText = game.genre;
-    clone.querySelector('.platform').innerText = game.platform;
-    clone.querySelector('.description').innerText = game.description;
+    const title = clone.querySelector('.title');
+    const genre = clone.querySelector('.genre');
+    const platform = clone.querySelector('.platform');
+    const description = clone.querySelector('.description');
 
-    return clone.querySelector('li');
+    // Insert text content
+    title.innerText = game.title;
+    genre.innerText = game.genre;
+    platform.innerText = game.platform;
+    description.innerText = game.description;
+
+    // Set tag colours
+    genre.style.backgroundColor = colourHash(game.genre);
+    platform.style.backgroundColor = colourHash(game.platform);
+
+    return clone.children[0];
 }
 
 function onPageLoad() {

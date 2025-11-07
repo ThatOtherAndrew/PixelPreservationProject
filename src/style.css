@@ -59,6 +59,11 @@ li h3 {
     margin: 0;
 }
 
+.tag {
+    padding: 0.2em 0.5em;
+    border-radius: 999px;
+}
+
 .buttons {
     margin-top: auto;
     display: flex;
