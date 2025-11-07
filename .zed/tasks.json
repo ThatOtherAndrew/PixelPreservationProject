@@ -1,0 +1,11 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+[
+  {
+    "label": "Open in browser",
+    "command": "xdg-open src/index.html",
+    "allow_concurrent_runs": true,
+    "reveal": "never",
+    "hide": "on_success",
+    "shell": "system"
+  }
+]
