@@ -80,7 +80,9 @@ h1 {
     background-color: transparent;
     cursor: pointer;
 
-    transition: background-color 0.15s ease;
+    transition:
+        background-color 0.15s ease,
+        opacity 0.15s ease;
 }
 
 #sort-select:hover {
@@ -156,6 +158,20 @@ li h3 {
     background-color: #eee !important;
 }
 
+/* Frozen UI when in edit mode */
+
+#sort-select:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.button:disabled,
+#add-game-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 /*****************/
 /* Entry buttons */
 /*****************/
@@ -173,9 +189,12 @@ li h3 {
     height: 3em;
     border: 2px solid grey;
     border-radius: 10px;
+    cursor: pointer;
 
     background-color: #f0f0f0;
-    transition: background-color 0.15s ease;
+    transition:
+        background-color 0.15s ease,
+        opacity 0.15s ease;
 }
 
 .button:hover {
@@ -213,6 +232,7 @@ li h3 {
     color: grey;
     border: 5px dashed grey;
     border-radius: 50%;
+    cursor: pointer;
 
     background-color: transparent;
     transition: all 0.25s ease;

@@ -1,6 +1,40 @@
 'use strict';
 
 let currentSortBy = 'title';
+let isEditing = false;
+
+/**
+ * Disable all buttons except those in the specified li element
+ * @param {HTMLLIElement} editingLi - The li being edited
+ */
+function setEditingMode(editingLi) {
+    isEditing = true;
+    const allButtons = document.querySelectorAll('#games button');
+    allButtons.forEach((button) => {
+        if (!editingLi.contains(button)) {
+            button.disabled = true;
+        }
+    });
+
+    // Disable sort select
+    const sortSelect = document.getElementById('sort-select');
+    sortSelect.disabled = true;
+}
+
+/**
+ * Re-enable all buttons
+ */
+function clearEditingMode() {
+    isEditing = false;
+    const allButtons = document.querySelectorAll('#games button');
+    allButtons.forEach((button) => {
+        button.disabled = false;
+    });
+
+    // Enable sort select
+    const sortSelect = document.getElementById('sort-select');
+    sortSelect.disabled = false;
+}
 
 /**
  * @param {string} string
@@ -160,6 +194,7 @@ function onPageLoad() {
             const addGameEntry = document.getElementById('add-game-entry');
             const editEntry = buildEditGameEntry();
             addGameEntry.replaceWith(editEntry);
+            setEditingMode(editEntry);
             return;
         }
 
@@ -175,6 +210,7 @@ function onPageLoad() {
             const gameIndex = parseInt(li.dataset.gameIndex);
             if (!isNaN(gameIndex)) {
                 games.splice(gameIndex, 1);
+                clearEditingMode();
                 renderGames(currentSortBy);
             }
             return;
@@ -190,12 +226,14 @@ function onPageLoad() {
             if (!isNaN(gameIndex)) {
                 const editLi = buildEditGameEntry(gameIndex);
                 li.replaceWith(editLi);
+                setEditingMode(editLi);
             }
             return;
         }
 
         // Handle discard button
         if (button.classList.contains('discard')) {
+            clearEditingMode();
             renderGames(currentSortBy);
             return;
         }
@@ -234,6 +272,7 @@ function onPageLoad() {
                 games.push(gameData);
             }
 
+            clearEditingMode();
             renderGames(currentSortBy);
             return;
         }
