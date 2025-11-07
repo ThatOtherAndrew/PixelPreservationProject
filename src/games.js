@@ -32,14 +32,14 @@ const games = [
     platform: "SNES",
     genre: "RPG",
     description:
-      "Travel through time with a team of heroes to prevent the apocalypse and shape the worldâ€™s destiny.",
+      "Travel through time with a team of heroes to prevent the apocalypse and shape the world's destiny.",
   },
   {
     title: "Castlevania",
     platform: "NES",
     genre: "Action",
     description:
-      "Venture into Draculaâ€™s castle armed with a whip and holy weapons to defeat the dark lord.",
+      "Venture into Dracula's castle armed with a whip and holy weapons to defeat the dark lord.",
   },
   {
     title: "Tekken 3",
