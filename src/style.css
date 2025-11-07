@@ -1,6 +1,10 @@
+/*******************/
+/* Global defaults */
+/*******************/
+
 body {
     margin: 40px auto;
-    max-width: 650px;
+    max-width: min(80rem, 90%);
     line-height: 1.6;
     font-size: 18px;
     color: #444;
@@ -11,4 +15,49 @@ h1,
 h2,
 h3 {
     line-height: 1.2;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1rem;
+}
+
+/****************/
+/* Game entries */
+/****************/
+
+li {
+    background-color: gainsboro;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+li h4 {
+    margin: 0;
+}
+
+.buttons {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5em;
+    justify-content: flex-end;
+}
+
+.button {
+    padding: 0;
+    width: 3em;
+    height: 3em;
+    border: 2px solid grey;
+    border-radius: 10px;
+}
+
+.button img {
+    display: block;
+    margin: 0 auto;
 }

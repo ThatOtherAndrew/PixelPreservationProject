@@ -17,9 +17,12 @@ function buildGameEntry(game) {
 }
 
 function onPageLoad() {
+    // Sort by title
+    games.sort((a, b) => a.title.localeCompare(b.title));
+
+    // Render game entries
     const gamesList = document.getElementById('games');
     for (const game of games) {
-        console.log(game);
         gamesList.appendChild(buildGameEntry(game));
     }
 }
