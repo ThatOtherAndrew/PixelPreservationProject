@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US">
+  <head>
+    <title>The Pixel Preservation Project</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="\aa:CssFile " />
+    <meta name="src" content="CS2003-P2-the-pixel-preservation-project.tex" />
+  </head>
+  <body>
+    <div class="maketitle">
+      University of St Andrews School of Computer Science<br /><br />
+      CS2003 — Internet and the Web — 2025/26  <br />
+      Assignment: P2 - The Pixel Preservation Project<br />
+      Deadline: 2025-11-05 Credits: 30% of coursework mark<br />
+      MMS is the definitive source for deadline and credit details<br /><br />
+      You are expected to have read and understood all the information in this
+      specification and any accompanying documents at least a week before the
+      deadline. You must contact the lecturer regarding any queries well in
+      advance of the deadline.
+    </div>
+    <h3 class="sectionHead">
+      <span class="titlemark">1 </span> <a id="x1-10001"></a>Description
+    </h3>
+    <!--l. 29-->
+    <p class="noindent">
+      You’ve inherited a garage full of vintage video games (cartridges, floppy
+      disks in huge boxes, jewel cased CD-ROM). Rather then letting them decay,
+      you have decided to dedicate all your free time to archiving them
+      digitally by building a interactive web site that lets users view, search,
+      add, and manage a catalogue of classic games.
+      <!--l. 31-->
+    </p>
+
+    <p class="noindent">
+      Your task is to build a single page web application that will allow users
+      to view and manage the catalogue. You will need to use the following
+      technologies:
+    </p>
+
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 34-->
+        <p class="noindent">HTML5 for the structure of web pages,</p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 35-->
+        <p class="noindent">CSS3 for presentation of web pages,</p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 36-->
+        <p class="noindent">JavaScript for client-side programming.</p>
+      </li>
+    </ul>
+    <!--l. 40-->
+    <p class="noindent">
+      This task is split into several parts of increasing complexity. You are
+      strongly encouraged to complete them in the stated order and not move onto
+      the more advanced tasks until you are happy with your solution to the more
+      basic tasks. The tasks build on each other and should be submitted as a
+      single project.
+      <!--l. 43-->
+    </p>
+
+    <p class="noindent">
+      You are not allowed to use 3rd party libraries, frameworks, or
+      preprocessors (such as React or SCSS).
+      <!--l. 46-->
+    </p>
+
+    <p class="noindent">
+      The suggested structure is that there is an index.html, a style.css, and
+      one or more JavaScript files. However, you should feel free to diverge
+      from this as you see fit and can justify in your report.
+      <!--l. 49-->
+    </p>
+
+    <p class="noindent">
+      Your application must be runnable via a locally running webserver on the
+      lab machines. You can serve a local webpage on a lab machine by running
+      the following command, "python3 -m http.server port number" in the folder
+      that you want to serve.
+      <!--l. 54-->
+    </p>
+
+    <p class="noindent"></p>
+    <h3 class="sectionHead">
+      <span class="titlemark">2 </span> <a id="x1-20002"></a>Data Model
+    </h3>
+    <!--l. 55-->
+    <p class="noindent">
+      Some of the games have already been catalogued and their information
+      stored as JavaScript object literals, one for each game. This current
+      state of the catalogue is provided in the file games.js (found on
+      Studres).
+      <!--l. 57-->
+    </p>
+
+    <p class="noindent">Each object stores the following information:</p>
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 60-->
+        <p class="noindent">
+          Title: the name of the game, a string that must be less than or equal
+          to 40 characters in length.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 61-->
+        <p class="noindent">
+          Platform: The type of computer or console the game runs on. This can
+          have one of the following values: NES, SNES, PS1, PC, or AMIGA.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 62-->
+        <p class="noindent">
+          Genre: the genre the game is in, a string that must be less than or
+          equal to 20 characters in length.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 63-->
+        <p class="noindent">
+          Description: A short description of the game, a string that must be
+          less than or equal to 200 characters in length.
+        </p>
+      </li>
+    </ul>
+    <!--l. 66-->
+    <p class="noindent">
+      Note that all of these fields are required and cannot be missing or left
+      blank.
+      <!--l. 68-->
+    </p>
+
+    <p class="noindent">
+      You are free to load and transform games.js as you see fit, selecting
+      appropriate data structures for your implementation. However, entries in
+      the catalogue must conform to the above constraints for their properties.
+      Do not edit games.js, though you may include it in your project. If you
+      do, please ensure that it is included in your submission. Note that this
+      application is not required to persist the data between reloads of the
+      page.
+      <!--l. 73-->
+    </p>
+
+    <p class="noindent"></p>
+    <h3 class="sectionHead">
+      <span class="titlemark">3 </span> <a id="x1-30003"></a>Requirements
+    </h3>
+    <!--l. 74-->
+    <p class="noindent"></p>
+    <h4 class="subsectionHead">
+      <span class="titlemark">3.1 </span> <a id="x1-40003.1"></a>Basic
+      Functionality
+    </h4>
+    <!--l. 75-->
+    <p class="noindent">
+      Create a web application using HTML, CSS, and client-side JavaScript and
+      do the following:
+    </p>
+
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 77-->
+        <p class="noindent">
+          Add a list containing all the games from the games.js file displaying
+          the title, platform, title, and description. When doing this you must
+          ensure that all the games in the list conform to the constraints
+          stated in the data model. If they do not, you should log an error to
+          the console, not display the entry, and then continue processing the
+          other entries. Note that this list is not required to be an HTML list,
+          however you should justify your selection of an appropriate element
+          type in your report.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 78-->
+        <p class="noindent">
+          Design and implement a way for the user to add new games to the list.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 79-->
+        <p class="noindent">
+          Design and implement a way for the user to remove games from the list.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 80-->
+        <p class="noindent">
+          In a seperate CSS file, add CSS styles to the list entries to make
+          them more visual appealing based on your own tastes. Make sure to set
+          the font, background, and text color at a minimum.
+        </p>
+      </li>
+    </ul>
+    <!--l. 83-->
+    <p class="noindent"></p>
+    <h4 class="subsectionHead">
+      <span class="titlemark">3.2 </span> <a id="x1-50003.2"></a>Standard
+      Functionality
+    </h4>
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 85-->
+        <p class="noindent">
+          Validation: Ensure that any new entry that is added conforms to the
+          constraints stated in the data model. If it does not then the action
+          should be disallowed and user notified.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 86-->
+        <p class="noindent">
+          Duplicate Detection: Prevent the user from adding a game that already
+          exists in teh catalogue. Two games are considered the same if they
+          have the same values for their title and platform fields.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 87-->
+        <p class="noindent">
+          Sorting: Design and implement a way for the user to sort the list by
+          name, platform, or genre.
+        </p>
+      </li>
+    </ul>
+    <!--l. 90-->
+    <p class="noindent"></p>
+    <h4 class="subsectionHead">
+      <span class="titlemark">3.3 </span> <a id="x1-60003.3"></a>Advanced
+      Functionality
+    </h4>
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 92-->
+        <p class="noindent">
+          Edit: Design and implement a way for the user to modify the properties
+          of an existing game. Any new values should be validated (as in part 2)
+          to ensure that they conform to the data model.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 93-->
+        <p class="noindent">
+          Search: Design and implement a way for the user to search the
+          catalogue for a specific item or set of items based on the name.
+          Partial or case-insensitive queries and how search interacts with
+          sorting should be handled gracefully and how this is done should be
+          justifed in your report.
+        </p>
+      </li>
+    </ul>
+    <!--l. 96-->
+    <p class="noindent"></p>
+    <h3 class="sectionHead">
+      <span class="titlemark">4 </span> <a id="x1-70004"></a>Report
+    </h3>
+    <!--l. 98-->
+    <p class="noindent">
+      Your report must show, evidence of testing, including descriptions of any
+      issues you encountered and how they were resolved.
+      <!--l. 100-->
+    </p>
+
+    <p class="noindent">
+      Your report must use the structure outlined in the report_template
+      directory on studres. In particular you should pay attention to how to
+      structure your testing section.
+
+      <!--l. 104-->
+    </p>
+
+    <p class="noindent"></p>
+    <h3 class="sectionHead">
+      <span class="titlemark">5 </span> <a id="x1-80005"></a>Hints
+    </h3>
+    <!--l. 105-->
+    <p class="noindent">
+      We recommend an incremental approach: make sure that each part of your
+      program works before moving on to the next part. Make a safe copy of
+      whatever you have got working so far so that you always have a working
+      solution to submit while you are developing the next part of your
+      solution. This should allow you to experiment with different ways of
+      organising your code and implementing functionality without worrying of
+      breaking things.
+    </p>
+
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 107-->
+        <p class="noindent">
+          Use an HTML validator and a CSS validator to validate your code.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 108-->
+        <p class="noindent">
+          Use strict mode for JavaScript and check for errors/warnings in the
+          JavaScript console of your web browser.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 109-->
+        <p class="noindent">
+          It is good practice to write your HTML code, CSS code, and JavaScript
+          code in separate files and link to the CSS and JavaScript files from
+          within the HTML file as appropriate.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 110-->
+        <p class="noindent">
+          Use the Live Server plugin for Visual Studio Code (or something
+          similar for your editor or IDE of choice) to run your web application
+          when developing it.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 111-->
+        <p class="noindent">
+          Test using the local web server (as described in the description) on
+          the lab machines.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 112-->
+        <p class="noindent">
+          Any requirement requiring CSS is designed to assess your ability to
+          code using CSS rather than your graphic or interactive design skills.
+          You should aim for a clean, simple, and consistent design but we will
+          be grading the CSS based on the quality of the code rather than the
+          visual appearance.
+        </p>
+      </li>
+    </ul>
+    <!--l. 147-->
+    <p class="noindent"></p>
+    <h3 class="likesectionHead"><a id="x1-9000"></a>Submission</h3>
+    <!--l. 147-->
+    <p class="noindent">
+      A single file containing your code and PDF report in ZIP format must be
+      submitted electronically via MMS by the deadline. Submissions in any other
+      format will be rejected.
+      <!--l. 149-->
+    </p>
+
+    <p class="noindent">
+      The specific mark descriptors for this piece of coursework are described
+      below.
+    </p>
+
+    <ul class="itemize1">
+      <li class="itemize">
+        <!--l. 152-->
+        <p class="noindent">
+          A poor implementation in the 7-10 grade band will contain part of the
+          solution that demonstrates some understanding of main concepts but
+          does not work reliably and misses much of the functionality needed for
+          Basic Functionality.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 153-->
+        <p class="noindent">
+          A basic implementation in the 11–13 grade band will complete the Basic
+          Functionality. The report should demonstrate understanding of basic
+          concepts. The lower parts of this mark range will correspond to
+          submissions where there are weaknesses or the report demonstrates a
+          lack of understanding.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 154-->
+        <p class="noindent">
+          An implementation in the 14–16 range should complete the Basic and
+          Standard Functionality, including a clear description of what is done
+          and why. A mark of 16 will correctly implement all requirements for
+          both parts successfully, with understandable code and an insightful
+          report with high-quality documented testing.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 155-->
+        <p class="noindent">
+          An implementation in the 17–18 will complete all requirements. This
+          grade band requires an excellent implementation of the Basic and
+          Standard Functionality and a solid, non-trivial progress on the
+          Advanced Functionality including a report that demonstrates
+          understanding of those concepts with high-quality documented testing.
+        </p>
+      </li>
+
+      <li class="itemize">
+        <!--l. 156-->
+        <p class="noindent">
+          A grade of 19 and higher will require completion of all parts and
+          evidence deep understanding of the design, implementation, and testing
+          of the application detailed in the report.
+        </p>
+      </li>
+    </ul>
+    <!--l. 159-->
+    <p class="noindent"></p>
+    <h3 class="likesectionHead">
+      <a id="x1-10000"></a>Policies and Guidelines
+    </h3>
+    <div class="framedenv" id="shaded-1">
+      <!--l. 159-->
+      <p class="noindent">
+        Marking<br />
+        See the standard mark descriptors in the School Student Handbook:<br />
+        <a
+          href="https://info.cs.st-andrews.ac.uk/student-handbook/learning-teaching/feedback.html#Mark_Descriptors"
+          class="url"
+          >https://info.cs.st-andrews.ac.uk/student-handbook/learning-teaching/feedback.html∖#Mark_Descriptors</a
+        >
+        <!--l. 159-->
+      </p>
+
+      <p class="noindent">
+        Lateness penalty<br />
+        The standard penalty for late submission applies (Scheme A: 1 mark per
+        24-hour period, or part thereof):<br />
+        <a
+          href="https://info.cs.st-andrews.ac.uk/student-handbook/learning-teaching/assessment.html#lateness-penalties"
+          class="url"
+          >https://info.cs.st-andrews.ac.uk/student-handbook/learning-teaching/assessment.html∖#lateness-penalties</a
+        >
+        <!--l. 159-->
+      </p>
+
+      <p class="noindent">
+        Good academic practice<br />
+        The University policy on Good Academic Practice applies:<br />
+        <a
+          href="https://www.st-andrews.ac.uk/education/handbook/good-academic-practice/"
+          class="url"
+          >https://www.st-andrews.ac.uk/education/handbook/good-academic-practice/</a
+        >
+      </p>
+    </div>
+
+    <a id="x1-10000doc"></a>
+  </body>
+</html>
