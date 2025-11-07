@@ -65,7 +65,12 @@ function buildGameEntry(game) {
     genre.style.backgroundColor = colourHash(game.genre);
     platform.style.backgroundColor = colourHash(game.platform);
 
-    return clone.children[0];
+    // Add delete button handler
+    const li = clone.children[0];
+    const deleteButton = clone.querySelector('.button.danger');
+    deleteButton.addEventListener('click', () => li.remove());
+
+    return li;
 }
 
 function onPageLoad() {
