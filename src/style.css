@@ -103,3 +103,35 @@ li h3 {
     display: block;
     margin: 0 auto;
 }
+
+/********************/
+/* New entry button */
+/********************/
+
+#add-game-entry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-game-button {
+    width: 80%;
+    height: 80%;
+    color: grey;
+    border: 5px dashed grey;
+    border-radius: 50%;
+
+    background-color: transparent;
+    transition: all 0.25s ease;
+}
+
+#add-game-button:hover {
+    border-radius: 30%;
+    color: #666;
+    border-color: #666;
+    background-color: lightgrey;
+}
+
+#add-game-button svg {
+    width: 30%;
+}
