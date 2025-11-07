@@ -16,6 +16,34 @@ function colourHash(string) {
 
 /**
  * @param {Game} game
+ * @returns {boolean}
+ */
+function isGameEntryValid(game) {
+    const validPlatforms = ['NES', 'SNES', 'PS1', 'PC', 'AMIGA'];
+
+    // yes this is a crazy condition but it's concise and efficient
+    // prettier-ignore
+    return (
+        typeof game.title === 'string' &&
+        game.title.trim().length > 0 &&
+        game.title.length <= 40 &&
+
+        typeof game.platform === 'string' &&
+        game.platform.trim().length > 0 &&
+        validPlatforms.includes(game.platform) &&
+
+        typeof game.genre === 'string' &&
+        game.genre.trim().length > 0 &&
+        game.genre.length <= 20 &&
+
+        typeof game.description === 'string' &&
+        game.description.trim().length > 0 &&
+        game.description.length <= 200
+    );
+}
+
+/**
+ * @param {Game} game
  * @returns {HTMLLIElement}
  */
 function buildGameEntry(game) {
@@ -47,7 +75,11 @@ function onPageLoad() {
     // Render game entries
     const gamesList = document.getElementById('games');
     for (const game of games) {
-        gamesList.appendChild(buildGameEntry(game));
+        if (isGameEntryValid(game)) {
+            gamesList.appendChild(buildGameEntry(game));
+        } else {
+            console.warn('Invalid game entry skipped:', game);
+        }
     }
 }
 
