@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * @param {Game} game
+ * @returns {HTMLLIElement}
+ */
 function buildGameEntry(game) {
     const li = document.createElement("li");
     li.innerText = game.title;
