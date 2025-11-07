@@ -89,54 +89,42 @@ function buildGameEntry(game) {
 }
 
 /**
- * @param {Game} game
+ * @param {Game|null} game - Game to edit, or null to create new game
  * @returns {HTMLLIElement}
  */
-function buildEditGameEntry(game) {
-    const template = document.getElementById('game-entry');
+function buildEditGameEntry(game = null) {
+    const template = document.getElementById('edit-game-entry');
     const clone = template.content.cloneNode(true);
 
+    const li = clone.querySelector('li');
     const title = clone.querySelector('.title');
     const genre = clone.querySelector('.genre');
     const platform = clone.querySelector('.platform');
     const description = clone.querySelector('.description');
-
-    // Insert text content and make editable
-    title.innerText = game.title;
-    title.contentEditable = 'true';
-
-    genre.innerText = game.genre;
-    genre.contentEditable = 'true';
-
-    platform.innerText = game.platform;
-    platform.contentEditable = 'true';
-
-    description.innerText = game.description;
-    description.contentEditable = 'true';
-
-    // Set tag colours
-    genre.style.backgroundColor = colourHash(game.genre);
-    platform.style.backgroundColor = colourHash(game.platform);
-
-    // Replace button icons
-    const li = clone.children[0];
     const buttons = clone.querySelector('.buttons');
-    const editButtonsTemplate = document.getElementById('edit-game-buttons');
-    const editButtonsClone = editButtonsTemplate.content.cloneNode(true);
-    buttons.innerHTML = '';
-    buttons.appendChild(editButtonsClone);
 
-    // Add new button functionality
-    const discardButton = buttons.querySelector('.button.danger');
-    const saveButton = buttons.querySelector('.button:not(.danger)');
+    // If editing existing game, populate fields
+    if (game) {
+        title.innerText = game.title;
+        genre.innerText = game.genre;
+        platform.innerText = game.platform;
+        description.innerText = game.description;
+
+        // Set tag colours
+        genre.style.backgroundColor = colourHash(game.genre);
+        platform.style.backgroundColor = colourHash(game.platform);
+    }
+
+    // Button handlers
+    const discardButton = buttons.querySelector('.button.discard');
+    const saveButton = buttons.querySelector('.button.save');
 
     discardButton.addEventListener('click', () => {
         renderGames(currentSortBy);
     });
 
     saveButton.addEventListener('click', () => {
-        // Get edited values
-        const editedGame = {
+        const gameData = {
             title: title.innerText.trim(),
             genre: genre.innerText.trim(),
             platform: platform.innerText.trim(),
@@ -144,16 +132,21 @@ function buildEditGameEntry(game) {
         };
 
         // Validate
-        if (!isGameEntryValid(editedGame)) {
+        if (!isGameEntryValid(gameData)) {
             alert('Invalid game data. Please check your inputs.');
             return;
         }
 
-        // Update the game object
-        game.title = editedGame.title;
-        game.genre = editedGame.genre;
-        game.platform = editedGame.platform;
-        game.description = editedGame.description;
+        if (game) {
+            // Update existing game
+            game.title = gameData.title;
+            game.genre = gameData.genre;
+            game.platform = gameData.platform;
+            game.description = gameData.description;
+        } else {
+            // Add new game
+            games.push(gameData);
+        }
 
         // Re-render
         renderGames(currentSortBy);
@@ -173,11 +166,21 @@ function renderGames(sortBy) {
         return a[sortBy].localeCompare(b[sortBy]);
     });
 
-    // Clear existing game entries (except the add button)
+    // Clear existing game entries and recreate add button
     const gamesList = document.getElementById('games');
-    const addButton = document.getElementById('add-game-entry');
     gamesList.innerHTML = '';
-    gamesList.appendChild(addButton);
+
+    const addGameTemplate = document.getElementById('add-game-entry');
+    const addGameClone = addGameTemplate.content.cloneNode(true);
+    gamesList.appendChild(addGameClone);
+
+    // Re-attach add button event listener
+    const addGameButton = document.getElementById('add-game-button');
+    addGameButton.addEventListener('click', () => {
+        const addGameEntry = document.getElementById('add-game-entry');
+        const editEntry = buildEditGameEntry();
+        addGameEntry.replaceWith(editEntry);
+    });
 
     // Render game entries
     for (const game of sortedGames) {

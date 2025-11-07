@@ -21,17 +21,19 @@
           <option value="genre">Sort by Genre</option>
         </select>
       </div>
-      <ul id="games">
-        <li id="add-game-entry">
-          <button id="add-game-button">
-            <!-- prettier-ignore -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>
-          </button>
-        </li>
-      </ul>
+      <ul id="games"></ul>
     </main>
 
     <!--Game entry templates-->
+
+    <template id="add-game-entry">
+      <li id="add-game-entry">
+        <button id="add-game-button">
+          <!-- prettier-ignore -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>
+        </button>
+      </li>
+    </template>
 
     <template id="game-entry">
       <li>
@@ -52,13 +54,25 @@
       </li>
     </template>
 
-    <template id="edit-game-buttons">
-      <button class="button danger">
-        <img src="assets/icons/x.png" alt="Discard" />
-      </button>
-      <button class="button">
-        <img src="assets/icons/check.png" alt="Save" />
-      </button>
+    <template id="edit-game-entry">
+      <li>
+        <h3 class="title" contenteditable="true">Game Title</h3>
+        <div>
+          <span class="tag genre" contenteditable="true">Genre</span>
+          <span class="tag platform" contenteditable="true">Platform</span>
+        </div>
+        <p class="description" contenteditable="true">
+          Description of the game...
+        </p>
+        <div class="buttons">
+          <button class="button discard danger">
+            <img src="assets/icons/x.png" alt="Discard" />
+          </button>
+          <button class="button save">
+            <img src="assets/icons/check.png" alt="Save" />
+          </button>
+        </div>
+      </li>
     </template>
   </body>
 </html>
