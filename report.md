@@ -150,6 +150,10 @@ The results are shown below:
 
 The perfect Lighthouse score of 100 suggests that there are no performance issues on page load. Interacting with the web page also was smooth and without lag.
 
+### Accessibility
+
+Accessibility testing was performed as outlined in the test plan. All interactive elements were tested for keyboard navigation using the Tab key, and all buttons were accessible without requiring mouse input. All images and buttons were verified to have appropriate alt text and hover text for screen readers. Chrome DevTools was used to emulate various vision deficiencies including protanopia, deuteranopia, tritanopia, and achromatopsia (various forms of colour blindness). The page remained usable and accessible across all simulated conditions, with sufficient contrast between text and background elements. No accessibility issues were identified during testing.
+
 ## Evaluation
 
 This section should include one or two paragraphs evaluating the
