@@ -7,6 +7,7 @@ let isEditing = false;
 /**
  * Disable all buttons except those in the specified li element
  * @param {HTMLLIElement} editingLi - The li being edited
+ * @returns {void}
  */
 function setEditingMode(editingLi) {
     isEditing = true;
@@ -26,6 +27,7 @@ function setEditingMode(editingLi) {
 
 /**
  * Re-enable all buttons
+ * @returns {void}
  */
 function clearEditingMode() {
     isEditing = false;
@@ -42,8 +44,9 @@ function clearEditingMode() {
 }
 
 /**
- * @param {string} string
- * @returns {string}
+ * Generate a deterministic HSL colour from a string
+ * @param {string} string - The string to hash
+ * @returns {string} HSL colour string
  */
 function colourHash(string) {
     let hash = string
@@ -56,8 +59,9 @@ function colourHash(string) {
 }
 
 /**
- * @param {Game} game
- * @returns {boolean}
+ * Validate a game entry against all constraints
+ * @param {Game} game - The game to validate
+ * @returns {boolean} True if valid, false otherwise
  */
 function isGameEntryValid(game) {
     const validPlatforms = ['NES', 'SNES', 'PS1', 'PC', 'AMIGA'];
@@ -99,9 +103,10 @@ function isDuplicate(game, excludeIndex = null) {
 }
 
 /**
- * @param {Game} game
- * @param {number} index
- * @returns {HTMLLIElement}
+ * Build a DOM element for displaying a game entry
+ * @param {Game} game - The game data to display
+ * @param {number} index - The index of the game in the games array
+ * @returns {HTMLLIElement} The constructed list item element
  */
 function buildGameEntry(game, index) {
     const template = document.getElementById('game-entry');
@@ -130,8 +135,9 @@ function buildGameEntry(game, index) {
 }
 
 /**
+ * Build a DOM element for editing a game entry
  * @param {number|null} gameIndex - Index of game to edit, or null to create new game
- * @returns {HTMLLIElement}
+ * @returns {HTMLLIElement} The constructed editable list item element
  */
 function buildEditGameEntry(gameIndex = null) {
     const template = document.getElementById('edit-game-entry');
@@ -163,8 +169,10 @@ function buildEditGameEntry(gameIndex = null) {
 }
 
 /**
- * @param {string} sortBy
- * @param {string} searchQuery
+ * Render the games list with filtering and sorting applied
+ * @param {string} sortBy - The property to sort by (title, platform, or genre)
+ * @param {string} searchQuery - Optional search query to filter by title
+ * @returns {void}
  */
 function renderGames(sortBy, searchQuery = '') {
     currentSortBy = sortBy;
@@ -201,6 +209,10 @@ function renderGames(sortBy, searchQuery = '') {
     }
 }
 
+/**
+ * Initialise the page and attach event listeners
+ * @returns {void}
+ */
 function onPageLoad() {
     // Initial render
     renderGames('title');
