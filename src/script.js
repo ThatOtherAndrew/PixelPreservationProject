@@ -84,6 +84,21 @@ function isGameEntryValid(game) {
 }
 
 /**
+ * Check if a game is a duplicate
+ * @param {Game} game
+ * @param {number|null} excludeIndex - Index to exclude from check (when editing)
+ * @returns {boolean}
+ */
+function isDuplicate(game, excludeIndex = null) {
+    return games.some(
+        (existingGame, index) =>
+            index !== excludeIndex &&
+            existingGame.title.toLowerCase() === game.title.toLowerCase() &&
+            existingGame.platform === game.platform,
+    );
+}
+
+/**
  * @param {Game} game
  * @param {number} index
  * @returns {HTMLLIElement}
@@ -160,9 +175,7 @@ function renderGames(sortBy, searchQuery = '') {
         .map((game, index) => ({ game, index }))
         .filter(({ game }) => {
             if (!searchQuery) return true;
-            return game.title
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase());
+            return game.title.toLowerCase().includes(searchQuery.toLowerCase());
         });
 
     // Sort filtered games
@@ -274,15 +287,19 @@ function onPageLoad() {
                 description: description.innerText.trim(),
             };
 
+            const gameIndex = li.dataset.gameIndex
+                ? parseInt(li.dataset.gameIndex)
+                : null;
+
             // Validate
             if (!isGameEntryValid(gameData)) {
                 alert('Invalid game data. Please check your inputs.');
                 return;
+            } else if (isDuplicate(gameData, gameIndex)) {
+                alert('Duplicate game entry. This game already exists.');
+                return;
             }
 
-            const gameIndex = li.dataset.gameIndex
-                ? parseInt(li.dataset.gameIndex)
-                : null;
             if (gameIndex !== null && !isNaN(gameIndex)) {
                 // Update existing game
                 games[gameIndex].title = gameData.title;
