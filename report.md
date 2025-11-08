@@ -40,6 +40,22 @@ Some aspects of static type checking were introduced to reduce bugs during devel
 
 In order to achieve a consistent code style, the Prettier code formatter was used to automatically format code on save in the IDE. The `.prettierrc` configuration file was added to specify formatting options, and the `.prettierignore` file excludes the `games.js` file from being reformatted to keep it as close to the original as possible.
 
+### Implementation approach
+
+Several key technical decisions were made during implementation to improve code quality, performance, and maintainability.
+
+**HTML `<template>` tag**: All three card states (default, editing, and placeholder) were implemented as `<template>` elements in the HTML file. This approach provides significant benefits over constructing DOM elements with `innerHTML` or `document.createElement()`. Templates are parsed once by the browser but remain inert until cloned, allowing for efficient reuse of the same structure multiple times. Additionally, templates keep the HTML structure declarative and separate from JavaScript logic, improving code readability and maintainability. Each time a game card needs to be rendered, the appropriate template is cloned using `template.content.cloneNode(true)`, and then populated with the relevant game data.
+
+**Event delegation pattern**: Rather than attaching individual event listeners to each button in every game card, a single monolithic event handler was attached to the parent `<ul>` element. This handler uses event bubbling to capture all button clicks within the list, then determines which action to take based on the button's classes and context. This approach significantly reduces memory overhead and improves performance, especially as the number of games grows. It also simplifies the code by centralising all button logic in one location, and eliminates the need to re-attach listeners every time the list is re-rendered. The `data-game-index` attribute is used to track which game in the array each card corresponds to, allowing the event handler to modify the correct game object.
+
+**Edit mode locking**: To prevent data loss and maintain interface consistency, an `isEditing` global state variable was introduced to ensure only one game card can be edited at a time. When a user begins editing a card, all other buttons (including the add, edit, delete, sort, and search controls) are disabled via the `setEditingMode()` function. This prevents race conditions where multiple edits could interfere with each other, and ensures the user completes or discards their current edit before performing other operations. The `clearEditingMode()` function re-enables all controls once the edit is saved or discarded.
+
+**ContentEditable approach**: The editing interface uses the `contentEditable` attribute on elements rather than replacing them with `<input>` or `<textarea>` form fields. This design decision maintains perfect visual consistency between the default and editing states, as the layout remains identical. The user can simply click into any field and begin typing, with subtle visual cues (darker background and dashed border) indicating editability. This approach creates a more seamless editing experience compared to traditional forms.
+
+**State management**: Three global variables (`currentSortBy`, `currentSearchQuery`, and `isEditing`) track the application state across renders. When the game list is re-rendered (due to adding, editing, or deleting a game), these state variables ensure that the current sort order and search filter are preserved. This prevents the frustrating experience of losing one's place or context when making changes to the dataset.
+
+**Deterministic colour generation**: Platform and genre tags are assigned colours using a hash function (`colourHash()`) that converts the string into a consistent HSL colour value. This ensures that identical platforms or genres always receive the same colour across all cards, creating visual consistency and helping users quickly identify games at a glance without requiring a manually maintained colour mapping.
+
 ## Testing
 
 Due to the frontend-oriented nature of this assignment, an automated testing framework was deemed too impractical to implement, and manual comprehensive user testing was used instead.
@@ -172,3 +188,4 @@ Given more time, an extension to this project would be to connect it to a backen
 MDN Web Docs: https://developer.mozilla.org/en-US/ (accessed Nov 2025)
 Cloudflare Tunnel - Cloudflare One docs: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/ (accessed Nov 2025)
 CSS Grid Layout Guide: https://css-tricks.com/snippets/css/complete-guide-grid/ (accessed Nov 2025)
+The power of the <template> tag in HTML: https://dev.to/techelopment/the-power-of-the-tag-in-html-2297 (accessed Nov 2025)
