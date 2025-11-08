@@ -122,16 +122,21 @@ Shown below is a table summarising the functionality tests performed, and the re
 
 ### User experience
 
-In order to accurately test user experience, A friend was asked to perform a series of tasks on the web page, and provide feedback on the intuitiveness of the interface and any issues they encountered.
+In order to accurately test user experience, a friend was asked to perform a series of tasks on the web page, and provide feedback on the intuitiveness of the interface and any issues they encountered.
 
 Below is a table summarising the tests performed and any relevant notes:
 
 | Task | Notes |
 | --- | --- |
-| Add the Platformer game "Super Mario Bros" for NES, with the description "stomp goomba" | No issues observed |
+| Add the Platformer game "Super Mario Bros" for NES, with the description "stomp goomba" | Used plus button, no issues observed |
 | Delete all SNES games | User attempted to search for SNES, however only titles were searched |
-| Edit Castlevania to Castlevania II for SNES | No issues observed |
-TODO
+| Edit Castlevania to Castlevania II for SNES | Used edit butotn, no issues observed |
+| Sort games by platform | Immediately understood dropdown functionality |
+| Search for games containing "Legend" | Search functionality intuitive, results filtered instantly |
+| Add a duplicate game | User received clear feedback via alert message |
+| Navigate using keyboard only | Tab navigation worked as expected, all buttons accessible |
+
+Overall, the tester found the interface intuitive and easy to use. The only confusion was around the search functionality being title-only, which the tester expected to search all fields.
 
 ### Performance
 
