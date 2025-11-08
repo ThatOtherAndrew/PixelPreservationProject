@@ -26,21 +26,21 @@ The placeholder card for creating a new entry is kept very minimal, with only a 
 
 ![The original design sketch for the new game entry placeholder](/assets/new_game_entry.png){width=50%}
 
+### Code quality
+
+The frontend source code in the `src/` directory was separated by purpose into multiple files and directories. The purpose of each is detailed below:
+
+- `index.html`: The main HTML file, containing the web page structure and template components, and linking to relevant JS, CSS, and asset files.
+- `games.js`: The initial state of the retro games dataset, downloaded as per the project specification. The file was unmodified as requested with the exception of fixing a text encoding error with apostrophe characters.
+- `script.js`: The main JavaScript file, containing functions for initialising the reactive elements of the web page, and manipulating the dataset from `games.js`.
+- `style.css`: The main CSS file, containing global styles for the web page.
+- `assets/`: A directory containing assets used in the web page, such as the Departure Mono font used for the header (under `assets/fonts/`) and icons used for buttons (under `assets/icons/`).
+
+Some aspects of static type checking were introduced to reduce bugs during development and improve IDE autocompletion when writing code. Since the project requred the use of vanilla JavaScript, using TypeScript syntax was not an option. Thus, JSDoc comments were added to functions to specify parameter and return types, and a `globals.d.ts` file was added to define the `Game` object records used in `games.js` and manipulated in `script.js`.
+
+In order to achieve a consistent code style, the Prettier code formatter was used to automatically format code on save in the IDE. The `.prettierrc` configuration file was added to specify formatting options, and the `.prettierignore` file excludes the `games.js` file from being reformatted to keep it as close to the original as possible.
+
 ## Testing
-
-This section should describe how you tested your program. In CS2003 we
-will not be using stacscheck, so you must describe how you ensured
-that your program was complete and worked correctly. Please check
-individual practical specifications as they may also include specific
-tests. For all practical reports, you _must_ include a table of tests
-that looks like the following:
-
----
-
-What is being Pre-conditions Expected Actual
-tested Outcome Outcome
-
----
 
 The purpose of What needs to What do you What do you
 this test. be set up for want to see? actually see?
