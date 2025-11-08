@@ -170,11 +170,6 @@ The perfect Lighthouse score of 100 suggests that there are no performance issue
 
 Accessibility testing was performed as outlined in the test plan. All interactive elements were tested for keyboard navigation using the Tab key, and all buttons were accessible without requiring mouse input. All images and buttons were verified to have appropriate alt text and hover text for screen readers. Chrome DevTools was used to emulate various vision deficiencies including protanopia, deuteranopia, tritanopia, and achromatopsia (various forms of colour blindness). The page remained usable and accessible across all simulated conditions, with sufficient contrast between text and background elements. No accessibility issues were identified during testing.
 
-## Evaluation
-
-This section should include one or two paragraphs evaluating the
-success of your submission compared to what you were asked to do.
-
 ## Conclusion
 
 My implementation of this assignment successfully implements all features detailed in the project specification. Its greatest strength is the UI/UX, which I believe is the most polished aspect of my submission, and meets a high standard of usability, accessibility, and performance. This assignment was a good exercise for me in vanilla JavaScript, putting aside convenient abstractions offered by frameworks and libraries to focus on lower-level DOM manipulation and event handling.
