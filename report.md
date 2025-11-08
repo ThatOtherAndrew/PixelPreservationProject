@@ -4,15 +4,27 @@ This assignment involved using vanilla HTML, CSS and JavaScript to design and co
 
 ## Design
 
+### User Interface
+
 A design-driven development approach was taken when implementing this project. The first step taken before writing any code was sketching out wireframes on a digital whiteboard app for different states of "game entries", components representing individual games in the dataset. Aiming to make the interface maximally cohesive and intuitive, the game entries were designed as entirely self-contained cards which implement directly creating, reading, updating and deleting their content.
 
 A total of three states were designed for the game entry cards: the default state, an editing state, and a blank placeholder state for creating new entries. All three states were implemented as template components in the final product.
+
+{{< pagebreak >}}
 
 The layout of a card in its default state is optimised for reading by displaying the platform and genre information as "tag" components, which also serves as a visual separator between the game title and description text. The bottom right of the card includes two buttons for editing and deleting the entry, rendered as icons.
 
 ![The original design sketch for a game entry card in its default state](/assets/filled_game_entry.png){width=80%}
 
-TODO
+A card in its editing state keeps the same element layout as the default state, instead of constructing a separate layout for form input, to maintain visual consistency and improve ease of use. Editable fields are given a darker background and border to signal to the user that they can be modified. The Edit and Delete buttons are replaced with Save and Discard buttons respectively, such that the destructive action (deleting and discarding) is kept in the same position to reduce user error.
+
+![The original design sketch for a game entry card in its editing state](/assets/edit_game_entry.png){width=60%}
+
+{{< pagebreak >}}
+
+The placeholder card for creating a new entry is kept very minimal, with only a plus icon to indicate that no data exists yet and that clicking the card will allow the user to create a new game entry.
+
+![The original design sketch for the new game entry placeholder](/assets/new_game_entry.png){width=50%}
 
 ## Testing
 
