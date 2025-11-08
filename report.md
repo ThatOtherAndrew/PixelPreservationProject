@@ -78,8 +78,47 @@ The following test plan was created:
 Shown below is a table summarising the functionality tests performed, and the results found:
 
 | What is being tested | Pre-conditions | Expected Outcome | Actual Outcome |
-|---|---|---|---|
-TODO
+|:--|:--|:--|:--|
+| **Dataset Loading** |
+| Initial dataset loads | Fresh page load | All 13 games displayed | All 13 games displayed correctly |
+| Invalid entry handling | Invalid game in `games.js` | Entry not displayed, console warning logged | Entry skipped, console warning logged |
+| Console logging | Invalid entry present | Warning message in console | Warning displayed in console |
+| **Create Operations** |
+| Add valid game | Add game with valid data | Game added to list | Game added successfully |
+| Invalid title length | Add game with 41+ char title | Alert shown, game not added | Invalid data alert, game not added |
+| Invalid platform | Add game with non-whitelisted platform | Alert shown, game not added | Alert shown, game not added |
+| Invalid genre length | Add game with 21+ char genre | Alert shown, game not added | Alert shown, game not added |
+| Invalid description length | Add game with 201+ char description | Alert shown, game not added | Alert shown, game not added |
+| Missing required fields | Add game with blank fields | Alert shown, game not added | Alert shown, game not added |
+| Duplicate game detection | Add duplicate title+platform | Duplicate alert shown, game not added | Duplicate alert shown, game not added |
+| Case-insensitive duplicate | Add "SUPER MARIO BROS." on NES | Detected as duplicate | Duplicate detected correctly |
+| **Read Operations** |
+| Display game data | Page loaded | All game fields displayed | All fields displayed correctly |
+| Tag colours | Multiple games with same platform/genre | Consistent colours for matching tags | Colours consistent and deterministic |
+| **Update Operations** |
+| Edit with valid data | Edit game with valid changes | Game updated, changes reflected | Game updated successfully |
+| Edit with invalid data | Edit game with invalid data | Alert shown, original data retained | Alert shown, data unchanged |
+| Edit to duplicate | Edit to match existing game | Duplicate alert, original data retained | Duplicate detected, data preserved |
+| Discard changes | Edit then discard | Changes discarded, original data shown | Changes discarded correctly |
+| **Delete Operations** |
+| Delete game | Click delete button | Game removed from list | Game deleted successfully |
+| Delete persistence | Delete then sort/filter | Deleted game does not reappear | Deletion persists correctly |
+| **Sorting** |
+| Sort by title | Select "Sort by Title" | Games sorted alphabetically by title | Sorted correctly by title |
+| Sort by platform | Select "Sort by Platform" | Games sorted alphabetically by platform | Sorted correctly by platform |
+| Sort by genre | Select "Sort by Genre" | Games sorted alphabetically by genre | Sorted correctly by genre |
+| Sort with new entry | Add game whilst sorting active | New game in correct sorted position | New game inserted correctly |
+| Sort with edited entry | Edit game whilst sorting active | Edited game moves to correct position | Edited game re-sorted correctly |
+| **Search/Filtering** |
+| Case-insensitive search | Type "mario" in search | Games matching "Mario" displayed | Case-insensitive search works |
+| Partial matching | Type "chron" in search | "Chrono Trigger" displayed | Partial matching works correctly |
+| No matches | Type "xyz123" in search | No games shown, add button visible | Empty results handled correctly |
+| Clear search | Enter then clear search | All games reappear | Search clears correctly |
+| **Combined Operations** |
+| Search + sort | Search then change sort | Filtered results sorted | Search and sort combine correctly |
+| Sort + search | Sort then search | Filtered results maintain sort | Sort and search combine correctly |
+| Edit during search | Edit filtered game | Game visibility updates based on changes | Edited values filtered correctly |
+| Add during search/sort | Add game with filters active | New game filtered and sorted correctly | New game handled correctly |
 
 ### User experience
 
@@ -119,4 +158,6 @@ Given more time, an extension to this project would be to connect it to a backen
 
 ## Bibliography
 
-.
+MDN Web Docs: https://developer.mozilla.org/en-US/ (accessed Nov 2025)
+Cloudflare Tunnel - Cloudflare One docs: https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/ (accessed Nov 2025)
+CSS Grid Layout Guide: https://css-tricks.com/snippets/css/complete-guide-grid/ (accessed Nov 2025)
