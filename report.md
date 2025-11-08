@@ -42,13 +42,67 @@ In order to achieve a consistent code style, the Prettier code formatter was use
 
 ## Testing
 
-The purpose of What needs to What do you What do you
-this test. be set up for want to see? actually see?
-the test.
+Due to the frontend-oriented nature of this assignment, an automated testing framework was deemed too impractical to implement, and manual comprehensive user testing was used instead.
 
----
+The following test plan was created:
 
-: A testing table {#tbl:table}
+- Functionality
+  - Initial dataset is loaded correctly?
+    - Invalid dataset entries are skipped?
+    - Invalid entries are logged to console?
+  - Individual CRUD operations work correctly?
+    - Data is validated upon creation/editing?
+    - Attempting to add duplicate game is prevented gracefully?
+  - Sorting and filtering works correctly?
+    - New / edited entries are sorted/filtered by their new values?
+    - Sorting and filtering can be combined?
+- User experience
+  - Page layout is responsive to screen size?
+  - No unexpected errors in console?
+  - UI is intuitive to use?
+    - Users can perform CRUD operations?
+    - Users can search and filter?
+- Performance
+  - Initial page load is fast?
+  - UI interactions are smooth and without lag?
+  - Lighthouse benchmark results are satisfactory?
+- Accessibility
+  - All interactive elements are keyboard-navigable?
+  - Sufficient colour contrast for text and interactive elements?
+  - Images and buttons have alt text and hover text?
+  - Page is usable with vision deficiencies?
+  - Page is usable with touchscreen devices?
+
+### Functionality
+
+Shown below is a table summarising the functionality tests performed, and the results found:
+
+| What is being tested | Pre-conditions | Expected Outcome | Actual Outcome |
+|---|---|---|---|
+TODO
+
+### User experience
+
+In order to accurately test user experience, A friend was asked to perform a series of tasks on the web page, and provide feedback on the intuitiveness of the interface and any issues they encountered.
+
+Below is a table summarising the tests performed and any relevant notes:
+
+| Task | Notes |
+| --- | --- |
+| Add the Platformer game "Super Mario Bros" for NES, with the description "stomp goomba" | No issues observed |
+| Delete all SNES games | User attempted to search for SNES, however only titles were searched |
+| Edit Castlevania to Castlevania II for SNES | No issues observed |
+TODO
+
+### Performance
+
+In order to obtain metricised performance results for the web page, the Chrome DevTools Lighthouse tab was used to test the page performance on a variety of metrics and obtain a final performance score.
+
+Since Lighthouse produces the best results for live web pages hosted on domains, the `tunnel.thatother.dev` domain was configured to serve the local webpage using Cloudflare Zero Trust to create a tunnel to a local web server, served using `python3 -m http.server`.
+
+The results are shown below:
+
+TODO
 
 ## Evaluation
 
