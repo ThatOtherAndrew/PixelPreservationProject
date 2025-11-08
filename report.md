@@ -4,10 +4,15 @@ This assignment involved using vanilla HTML, CSS and JavaScript to design and co
 
 ## Design
 
-This section should include a description of the design of your
-program and justification of any design decisions. If you have used
-papers, websites and so forth to help you, please make sure that these
-are cited appropriately in line with GAP..
+A design-driven development approach was taken when implementing this project. The first step taken before writing any code was sketching out wireframes on a digital whiteboard app for different states of "game entries", components representing individual games in the dataset. Aiming to make the interface maximally cohesive and intuitive, the game entries were designed as entirely self-contained cards which implement directly creating, reading, updating and deleting their content.
+
+A total of three states were designed for the game entry cards: the default state, an editing state, and a blank placeholder state for creating new entries. All three states were implemented as template components in the final product.
+
+The layout of a card in its default state is optimised for reading by displaying the platform and genre information as "tag" components, which also serves as a visual separator between the game title and description text. The bottom right of the card includes two buttons for editing and deleting the entry, rendered as icons.
+
+![The original design sketch for a game entry card in its default state](/assets/filled_game_entry.png){width=80%}
+
+TODO
 
 ## Testing
 
