@@ -146,7 +146,9 @@ Since Lighthouse produces the best results for live web pages hosted on domains,
 
 The results are shown below:
 
-TODO
+![Lighthouse performance test results](/assets/lighthouse.png){width=50%}
+
+The perfect Lighthouse score of 100 suggests that there are no performance issues on page load. Interacting with the web page also was smooth and without lag.
 
 ## Evaluation
 
