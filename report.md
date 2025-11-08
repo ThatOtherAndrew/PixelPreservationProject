@@ -57,11 +57,11 @@ success of your submission compared to what you were asked to do.
 
 ## Conclusion
 
-This section should include one or two paragraphs addressing:
+My implementation of this assignment successfully implements all features detailed in the project specification. Its greatest strength is the UI/UX, which I believe is the most polished aspect of my submission, and meets a high standard of usability, accessibility, and performance.
 
-- what you have achieved
-- what you found difficult
-- what you would have done if you had more time
+This assignment was a good exercise for me in vanilla JavaScript, putting aside convenient abstractions offered by frameworks and libraries to focus on lower-levell DOM manipulation and event handling. The greatest challenge for me was maintaining code quality when implementing reactive features such as editing and sorting data, as without e.g. a signal-driven framework, it was easy for the code to become tangled and difficult to maintain.
+
+Given more time, an extension to this project would be to connect it to a backend database for persistent data storage, instead of an ephemeral "mock dataset" which is lost on refreshing the page.
 
 ## Bibliography
 
